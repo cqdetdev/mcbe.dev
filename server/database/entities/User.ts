@@ -11,16 +11,22 @@ export default class User {
     username!: string
 
     @Column()
-    likes!: number
+    email!: string
 
     @Column()
-    dislikes!: number
+    avatar!: string
+
+    @Column()
+    likes: number = 0;
+
+    @Column()
+    dislikes: number = 0;
 
     @OneToMany(() => Post, (post: Post) => post.user)
-    posts!: Post[]
+    posts!: Post[];
 
     @OneToMany(() => Comment, (comment: Comment) => comment.user)
-    comments!: Comment[]
+    comments!: Comment[];
 
     @Column()
     createdAt: Date = new Date();

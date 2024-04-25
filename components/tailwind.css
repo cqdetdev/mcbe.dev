@@ -1,0 +1,16 @@
+/* tailwind.css */
+@keyframes flameAnimation {
+  0% {
+    color: #ff2400;
+  }
+  50% {
+    color: #ff6a00;
+  }
+  100% {
+    color: #e04e37;
+  }
+}
+
+.flame-animation:hover {
+  animation: flameAnimation 1s infinite;
+}

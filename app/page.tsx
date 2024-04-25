@@ -1,7 +1,10 @@
-import { Layout } from "../components/Layout";
+import { getServerSession } from "next-auth";
+import { Root } from "../components/Root";
+import handler from "./api/user/route";
 
-const Home: React.FC = () => (
-  <Layout />
-);
+const Home: React.FC = async () => {
+  const session = await getServerSession(handler);
+  return (<Root session={session} />)
+}
 
 export default Home;

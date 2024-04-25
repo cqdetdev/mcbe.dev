@@ -14,4 +14,4 @@ I've only done a few web-dev projecst prior to this, so I want to try out some n
 - Websockets (?)
 
 ## Images
-![Current Progress](https://github.com/cqdetdev/mcbe.dev/blob/master/assets/current.png?raw=true)
+![Current Progress](https://github.com/cqdetdev/mcbe.dev/blob/master/_assets/current.png?raw=true)
