@@ -1,10 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, type Relation } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, type Relation, ObjectIdColumn, ObjectId } from "typeorm"
 import Post from "./Post"
 import User from "./User"
 
 @Entity()
 export default class Comment {
-    @PrimaryGeneratedColumn()
+    @ObjectIdColumn()
     id!: number
 
     @Column()
@@ -16,11 +16,11 @@ export default class Comment {
     @Column()
     dislikes!: number
 
-    @ManyToOne(() => Post, (post) => post.comments)
-    post!: Relation<Post>;
+    @Column()
+    postID!: ObjectId
 
-    @ManyToOne(() => User, (user) => user.comments)
-    user!: Relation<User>
+    @Column()
+    userID!: ObjectId
 
     @Column()
     createdAt: Date = new Date()

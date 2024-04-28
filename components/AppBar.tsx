@@ -1,11 +1,11 @@
 import Link from "next/link";
-import React, { SVGProps } from "react";
+import React from "react";
 import { Input } from "./ui/Input";
 import { CubeIcon, LogOutIcon, SearchIcon, SettingsIcon, UserIcon } from "./ui/Icons";
 import "./tailwind.css"
 import { Button } from "./ui/Button";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from "./ui/DropdownMenu";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/Avatar";
 
 export interface AppBarProps {
     avatar?: string
@@ -52,11 +52,14 @@ export const AppBar: React.FC<AppBarProps> = ({ avatar }) => (
                         </Avatar>
                     </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
+                <DropdownMenuContent className="bg-[#14181d] text-white" align="end">
                     <DropdownMenuItem>
-                        <UserIcon className="mr-2 h-4 w-4" />
-                        My Profile
+                        <Link href="/account" className="flex">
+                            <UserIcon className="mr-2 h-4 w-4" />
+                            My Profile
+                        </Link>
                     </DropdownMenuItem>
+
                     <DropdownMenuItem>
                         <SettingsIcon className="mr-2 h-4 w-4" />
                         Settings

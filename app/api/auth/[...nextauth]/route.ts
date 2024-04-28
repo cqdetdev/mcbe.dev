@@ -1,6 +1,7 @@
 import NextAuth from "next-auth"
 import Credentials from 'next-auth/providers/github';
 import { config } from "dotenv"
+import { createUser, getUser, saveUser } from "@/server/database/entities";
 
 config({ path: ".env" })
 
@@ -18,6 +19,17 @@ export const handler = NextAuth({
             }
             return true;
         },
+
+        async signIn({ user, account, profile, email, credentials }) {
+            if (!await getUser(user.name!) !== null) {
+                const u = createUser();
+                u.username = user.name!;
+                u.email = user.email!;
+                u.avatar = user.image!;
+                await saveUser(u);
+            }
+            return true;
+        }
     },
     providers: [Credentials({
         clientId: process.env.CLIENT_ID!,

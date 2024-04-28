@@ -1,11 +1,11 @@
 import Link from "next/link"
-import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar"
+import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/Avatar"
 import { DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuItem, DropdownMenuContent, DropdownMenu } from "@/components/ui/DropdownMenu"
 import { CardTitle, CardHeader, CardContent, Card, CardFooter } from "@/components/ui/Card"
 import { CubeIcon, LogOutIcon, SettingsIcon, ToyBrickIcon, UserIcon } from "@/components/ui/Icons"
 import { Button } from "@/components/ui/Button"
 import { getServerSession } from "next-auth"
-import handler from "../api/user/route"
+import { handler } from "../api/auth/[...nextauth]/route"
 import { redirect } from "next/navigation"
 import { createUser, getUser, saveUser } from "@/server/database/entities"
 import moment from "moment";
@@ -16,7 +16,7 @@ export default async function Account() {
         redirect("/sign-in");
     }
 
-    const { user: u } = session;
+    const { user: u } = session as any;
     const { name, email, image } = u;
 
     let user = await getUser(name);
@@ -46,8 +46,8 @@ export default async function Account() {
                                     <AvatarFallback>JP</AvatarFallback>
                                 </Avatar>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent className="w-56">
-                                <DropdownMenuLabel className="font-semibold">John Doe</DropdownMenuLabel>
+                            <DropdownMenuContent className="w-56 bg-[#14181d] text-white">
+                                <DropdownMenuLabel className="font-semibold">{user.username}</DropdownMenuLabel>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem>
                                     <Link className="flex items-center gap-2" href="#">
@@ -56,13 +56,13 @@ export default async function Account() {
                                     </Link>
                                 </DropdownMenuItem>
                                 <DropdownMenuItem>
-                                    <Link className="flex items-center gap-2" href="#">
+                                    <Link className="flex items-center gap-2" href="/account/settings">
                                         <SettingsIcon className="h-4 w-4" />
                                         Settings
                                     </Link>
                                 </DropdownMenuItem>
                                 <DropdownMenuItem>
-                                    <Link className="flex items-center gap-2" href="#">
+                                    <Link className="flex items-center gap-2" href="/sign-out">
                                         <LogOutIcon className="h-4 w-4" />
                                         Logout
                                     </Link>

@@ -8,7 +8,7 @@ export let src: DataSource;
 
 const main = async () => {
     const opt: MongoConnectionOptions = {
-        name: "forum",
+        name: "mcbe-dev",
         type: "mongodb",
         entities: [User, Post, Comment],
         host: "127.0.0.1",

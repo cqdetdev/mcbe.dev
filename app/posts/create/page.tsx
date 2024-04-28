@@ -1,20 +1,12 @@
-import Link from "next/link"
-import { Input } from "@/components/ui/Input"
-import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/Button"
-import { DropdownMenuTrigger, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuContent, DropdownMenu } from "@/components/ui/DropdownMenu"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { ToyBrickIcon, SearchIcon, UserIcon, SettingsIcon, LogOutIcon, BoldIcon, ItalicIcon, UnderlineIcon, StrikethroughIcon, LinkIcon, CodeIcon, PaperclipIcon, FileWarningIcon } from "lucide-react"
+import { FileWarningIcon } from "lucide-react"
 import { getServerSession } from "next-auth"
 import { redirect } from "next/navigation"
-import handler from "@/app/api/user/route"
 import { AppBar } from "@/components/AppBar"
-import { FormEvent } from "react"
 import PostForm from "./PostForm"
+import { handler } from "@/app/api/auth/[...nextauth]/route"
 
 const CreatePost = async () => {
-    const session = await getServerSession(handler);
+    const session = await getServerSession<any, any>(handler);
     if (!session) {
         redirect("/sign-in");
     }

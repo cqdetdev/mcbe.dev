@@ -1,20 +1,23 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ObjectIdColumn, ObjectId } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ObjectIdColumn, ObjectId, type Relation, AfterLoad, JoinColumn } from "typeorm"
 import Post from "./Post"
 import Comment from "./Comment"
 
 @Entity()
 export default class User {
     @ObjectIdColumn()
+    id!: ObjectId;
+
+    @ObjectIdColumn()
     _id!: ObjectId
 
     @Column()
-    username!: string
+    username!: string;
 
     @Column()
-    email!: string
+    email!: string;
 
     @Column()
-    avatar!: string
+    avatar!: string;
 
     @Column()
     likes: number = 0;
@@ -22,15 +25,26 @@ export default class User {
     @Column()
     dislikes: number = 0;
 
-    @OneToMany(() => Post, (post: Post) => post.user)
-    posts!: Post[];
+    @Column()
+    posts!: Relation<Post>[];
 
-    @OneToMany(() => Comment, (comment: Comment) => comment.user)
+    @Column()
     comments!: Comment[];
 
     @Column()
     createdAt: Date = new Date();
 
-    @Column({})
+    @Column()
     updatedAt: Date = new Date();
+
+    @AfterLoad()
+    async nullChecks() {
+        if (!this.posts) {
+            this.posts = []
+        }
+
+        if (!this.comments) {
+            this.comments = []
+        }
+    }
 }

@@ -1,11 +1,10 @@
 "use client";
 import { AppBar } from "@/components/AppBar"
 import { Button } from "@/components/ui/Button"
-import { CheckIcon, GithubIcon, ToyBrickIcon } from "@/components/ui/Icons"
+import { CheckIcon, GithubIcon } from "@/components/ui/Icons"
 import { signIn } from "next-auth/react"
-import Link from "next/link"
 
-export default function Component() {
+export default function SignIn() {
     return (
         <div className="flex flex-col min-h-screen bg-[#14181d]">
             <AppBar />
@@ -16,7 +15,9 @@ export default function Component() {
                             <h1 className="text-2xl font-bold text-white">Sign in with GitHub</h1>
                             <p className="text-gray-400">Connect your GitHub account to more features on mcbe.dev</p>
                         </div>
-                        <Button className="w-full" variant="outline" onClick={() => signIn("github", { callbackUrl: "/account" })}>
+                        <Button className="w-full" variant="outline" onClick={async () => {
+                            await signIn("github", { callbackUrl: "/account" })
+                        }}>
                             <GithubIcon className="mr-2 h-5 w-5" />
                             Sign in with GitHub
                         </Button>

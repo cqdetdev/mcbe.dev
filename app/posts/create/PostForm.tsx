@@ -3,17 +3,24 @@
 import { Button } from "@/components/ui/Button";
 import { BoldIcon, CodeIcon, ItalicIcon, LinkIcon, PaperclipIcon, StrikethroughIcon, UnderlineIcon } from "@/components/ui/Icons";
 import { Input } from "@/components/ui/Input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/Label";
+import { Textarea } from "@/components/ui/TextArea";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { FormEvent, useState } from "react";
+import { navigate } from "./navigate";
+import { createPost } from "@/lib/api";
 
-const PostForm = ({ session }) => {
+const PostForm = ({ session }: { session: any }) => {
     const [title, setTitle] = useState<string>();
     const [content, setContent] = useState<string>();
-    const handleSubmit = (ev: FormEvent<HTMLFormElement>) => {
+
+    const handleSubmit = async (ev: FormEvent<HTMLFormElement>) => {
         ev.preventDefault();
-        console.log(title, content)
+        const id = await createPost(title!, content!);
+        if (id && id.length) {
+            await navigate(id!)
+        }
     }
 
     return (

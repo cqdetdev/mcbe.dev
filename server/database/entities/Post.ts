@@ -1,33 +1,36 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, type Relation } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, type Relation, ObjectIdColumn, ObjectId, JoinColumn } from "typeorm"
 import User from "./User"
 import Comment from "./Comment"
 
 @Entity()
 export default class Post {
-    @PrimaryGeneratedColumn()
-    id!: number
+    @ObjectIdColumn()
+    _id!: ObjectId;
+
+    @ObjectIdColumn()
+    id!: ObjectId;
 
     @Column()
-    title!: string
+    title!: string;
 
     @Column()
-    text!: string
+    text!: string;
 
     @Column()
-    likes!: number
+    likes: number = 0;
 
     @Column()
-    dislikes!: number
-
-    @ManyToOne(() => User, (user: User) => user.posts)
-    user!: Relation<User>
-
-    @OneToMany(() => Comment, (comment: Comment) => comment.post)
-    comments!: Comment[]
+    dislikes: number = 0;
 
     @Column()
-    createdAt: Date = new Date()
+    userID!: ObjectId
 
     @Column()
-    updatedAt: Date = new Date()
+    comments!: Comment[];
+
+    @Column()
+    createdAt: Date = new Date();
+
+    @Column()
+    updatedAt: Date = new Date();
 }
